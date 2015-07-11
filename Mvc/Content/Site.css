@@ -8,6 +8,15 @@
 header, footer, nav, section {
     display: block;
 }
+table {
+    font-size: 15px;
+    position:relative;
+    font-family: Arial, Sans-Serif;
+    text-align:justify; 
+}
+td {
+    width:100px
+}
 
 
 /* Styles for basic forms
@@ -19,7 +28,7 @@ fieldset {
 }
 
 legend {
-    font-size: 1.2em;
+    font-size: 1.8em;
     font-weight: bold;
 }
 
@@ -28,10 +37,17 @@ textarea {
 }
 
 .editor-label {
+    font-size:15px;
     margin: 1em 0 0 0;
 }
 
 .editor-field {
+    font-size:15px;
+    margin: 0.5em 0 0 0;
+}
+.drop-list {
+    font-size:15px;
+    width:200px;
     margin: 0.5em 0 0 0;
 }
 
@@ -75,14 +91,14 @@ textarea {
 .menu ul li a, .menu ul li a:visited {
     display:block; 
     text-decoration:none;
-    width:104px; 
+    width:300px; 
     max-height:100px; 
     text-align:center; 
     color:#fff; 
     border:1px solid #fff; 
     background:silver; 
     line-height:30px; 
-    font-size:13px; 
+    font-size:15px; 
     overflow:hidden; 
     vertical-align: middle;
 }

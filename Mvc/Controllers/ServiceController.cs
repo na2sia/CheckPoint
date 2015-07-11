@@ -61,7 +61,7 @@ namespace Mvc.Controllers
             }
             // Remove client for id
             [Authorize(Roles = "admin")]
-            public ActionResult DeleteClients(int id)
+            public ActionResult DeleteClient(int id)
             {
                 Client client = db.Clients.Find(id);
                 db.Clients.Remove(client);

@@ -8,9 +8,9 @@
 }
 <div><form method="post" action="/Sales/Index">
         <table>
-            <tr><td><p>Менеджер: </p></td><td> @Html.DropDownList("manager", ViewBag.Managers as SelectList)</td>
-            <td><p>Клиент : </p></td><td> @Html.DropDownList("client",ViewBag.Clients as SelectList)</td>
-            <td><p>Товар : </p></td><td> @Html.DropDownList("_goods",ViewBag.Goods as SelectList)</td>
+            <tr><td><p><b>Менеджер: </b></p></td><td><div class="drop-list"> @Html.DropDownList("manager", ViewBag.Managers as SelectList)</div></td>
+            <td><p><b>Клиент :</b> </p></td><td> <div class="drop-list">@Html.DropDownList("client",ViewBag.Clients as SelectList)</div></td>
+            <td><p><b>Товар : </b></p></td><td><div class="drop-list"> @Html.DropDownList("_goods",ViewBag.Goods as SelectList)</div></td>
             <td><input type="submit" value="Фильтр" /> </td></tr>
         </table>
     </form></div>
@@ -18,30 +18,33 @@
 <h2>Перечень продаж</h2>
 @*<p>Всего: @(Model.Count<Sales>())</p>*@
 <table>
- <tr>
-        <td><b>№ п.п.</b></td>
-        <td>
+    <tr>
+        @*<td><b>№ п.п.</b></td>*@
+        <td><b>
             @Html.DisplayNameFor(model => model.Date)
-        </td>
-        <td>
+        </b></td>
+        <td><b>
             @Html.DisplayNameFor(model => model.Cost)
-        </td>
-        <td>
+        </b></td>
+        <td><b>
             @Html.DisplayNameFor(model => model.ClientId)
-        </td>
-        <td>
+        </b></td>
+        <td><b>
             @Html.DisplayNameFor(model => model.ManagerId)
-        </td>
-        <td>
+        </b></td>
+        <td><b>
             @Html.DisplayNameFor(model => model.GoodsId)
-        </td>
+        </b></td>
+        <td><b>
+            Общие сведения
+        </b></td>
     </tr>
 @foreach (var item in Model) {
     i++;
     <tr>
-        <td><b>@i</b></td>
+        @*<td><b>@i</b></td>*@
         <td>
-            @Html.DisplayFor(modelItem => item.Date)
+            @Html.DisplayFor(modelItem => item.Date.Date)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Cost)

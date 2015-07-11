@@ -84,7 +84,11 @@ namespace Mvc.Controllers
             goods.Insert(0, new Goods { Name = "Все", Id = 0 });
             ViewBag.Goods = new SelectList(goods, "Id", "Name");
 
-            return View(allSales.ToList());
+            if (allSales != null)
+            {
+                return View(allSales.ToList());
+            }
+            return RedirectToAction("Index");
         }
         [Authorize(Roles="admin")]
         [HttpGet]
@@ -108,13 +112,19 @@ namespace Mvc.Controllers
         public ActionResult Create(Sales sales)
         {
             User user = db.Users.Where(m => m.Login == HttpContext.User.Identity.Name).FirstOrDefault();
+            Sales sal= new Sales();
             if (user == null)
             {
                 return RedirectToAction("LogOff", "Account");
             }
             if (ModelState.IsValid)
             {
-                db.Sales.Add(sales);
+                sal.Date = DateTime.Now;
+                sal.Cost = sales.Cost;
+                sal.ClientId = sales.ClientId;
+                sal.GoodsId = sales.GoodsId;
+                sal.ManagerId = sales.ManagerId;
+                db.Sales.Add(sal);
                 db.SaveChanges();
 
                 return RedirectToAction("Index");
@@ -140,5 +150,14 @@ namespace Mvc.Controllers
             }
             return View("Index");
         }
+        // Remove sales for id
+        [Authorize(Roles = "admin")]
+        public ActionResult Delete(int id)
+        {
+            Sales sales = db.Sales.Find(id);
+            db.Sales.Remove(sales);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }    
     }
 }

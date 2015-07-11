@@ -14,6 +14,7 @@ namespace Mvc.Controllers
     {
         private SalesContext db = new SalesContext();
 
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public ActionResult Index()
         {
@@ -22,7 +23,7 @@ namespace Mvc.Controllers
         }
 
         [HttpGet]
-       // [Authorize(Roles = "Администратор")]
+        [Authorize(Roles = "admin")]
         public ActionResult Create()
         {
             SelectList roles = new SelectList(db.Roles, "Id", "Name");
@@ -31,7 +32,7 @@ namespace Mvc.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = "admin                                             ")]
+        [Authorize(Roles = "admin")]
         public ActionResult Create(User user)
         {
             if (ModelState.IsValid)
@@ -47,7 +48,7 @@ namespace Mvc.Controllers
             return View(user);
         }
         [HttpGet]
-        //[Authorize(Roles = "Администратор")]
+        [Authorize(Roles = "admin")]
         public ActionResult Edit(int id)
         {
             User user = db.Users.Find(id);
@@ -58,7 +59,7 @@ namespace Mvc.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = "Администратор")]
+        [Authorize(Roles = "admin")]
         public ActionResult Edit(User user)
         {
             if (ModelState.IsValid)
@@ -73,7 +74,7 @@ namespace Mvc.Controllers
 
             return View(user);
         }
-        //[Authorize(Roles = "Администратор")]
+        [Authorize(Roles = "admin")]
         public ActionResult Delete(int id)
         {
             User user = db.Users.Find(id);

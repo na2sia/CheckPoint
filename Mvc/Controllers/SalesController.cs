@@ -12,6 +12,7 @@ namespace Mvc.Controllers
     public class SalesController : Controller
     {
         SalesContext db = new SalesContext();
+        [Authorize]
         [HttpGet]
         public ActionResult Index()
         {
@@ -22,11 +23,70 @@ namespace Mvc.Controllers
                                         .Include(r => r.Client)
                                         .Include(r=>r.Goods)
                                         .OrderByDescending(r => r.Date).ToList();
+                List<Manager> managers = db.Managers.ToList();
+                managers.Insert(0, new Manager { LastName = "Все", Id = 0 });
+                ViewBag.Managers = new SelectList(managers, "Id", "LastName");
 
+                List<Client> clients = db.Clients.ToList();
+                clients.Insert(0, new Client { LastName = "Все", Id = 0 });
+                ViewBag.Clients = new SelectList(clients, "Id", "LastName");
+                
+                List<Goods> goods = db.Goods.ToList();
+                goods.Insert(0, new Goods { Name = "Все", Id = 0 });
+                ViewBag.Goods = new SelectList(goods, "Id", "Name");
                 return View(sales);
             }
             return RedirectToAction("LogOff", "Account");
         }
+
+        [HttpPost]
+        public ActionResult Index(int client, int manager, int _goods)
+        {
+            IEnumerable<Sales> allSales = null;
+            if (manager == 0 && client == 0&&_goods==0)
+            {
+                return RedirectToAction("Index");
+            }
+            if (manager == 0 && _goods == 0 && client != 0)
+            {
+                allSales = from sal in db.Sales.Include(u => u.Manager).Include(u => u.Client).Include(u=>u.Goods)
+                           where sal.ClientId == client
+                           select sal;
+            }
+            else if (manager != 0 && client == 0 && _goods == 0)
+            {
+                allSales = from sal in db.Sales.Include(u => u.Manager).Include(u => u.Client).Include(u => u.Goods)
+                           where sal.ManagerId == manager
+                           select sal;
+            }
+            else if (manager == 0 && client == 0 && _goods != 0)
+            {
+                allSales = from sal in db.Sales.Include(u => u.Manager).Include(u => u.Client).Include(u => u.Goods)
+                           where sal.GoodsId == _goods
+                           select sal;
+            }
+            else
+            {
+                allSales = from sal in db.Sales.Include(u => u.Manager).Include(u => u.Client).Include(u=>u.Goods)
+                           where sal.ManagerId == manager && sal.ClientId == client&&sal.GoodsId==_goods
+                           select sal;
+            }
+
+            List<Manager> managers = db.Managers.ToList();
+            managers.Insert(0, new Manager { LastName = "Все", Id = 0 });
+            ViewBag.Managers = new SelectList(managers, "Id", "LastName");
+
+            List<Client> clients = db.Clients.ToList();
+            clients.Insert(0, new Client { LastName = "Все", Id = 0 });
+            ViewBag.Clients = new SelectList(clients, "Id", "LastName");
+            
+            List<Goods> goods = db.Goods.ToList();
+            goods.Insert(0, new Goods { Name = "Все", Id = 0 });
+            ViewBag.Goods = new SelectList(goods, "Id", "Name");
+
+            return View(allSales.ToList());
+        }
+        [Authorize(Roles="admin")]
         [HttpGet]
         public ActionResult Create()
         {
@@ -69,11 +129,13 @@ namespace Mvc.Controllers
             if (sales != null)
             {
                 //get client
-                var client = db.Clients.Where(m => m.Id == sales.ClientId);
+                sales.Client = db.Clients.Where(m => m.Id == sales.ClientId).First();
                 //get manager
-                var manager = db.Managers.Where(m => m.Id == sales.ManagerId);
+                sales.Manager = db.Managers.Where(m => m.Id == sales.ManagerId).First();
                 //get goods
-                var goods = db.Goods.Where(m => m.Id == sales.GoodsId);
+                sales.Goods = db.Goods.Where(m => m.Id == sales.GoodsId).First();
+                
+
                 return PartialView("_Details", sales);
             }
             return View("Index");

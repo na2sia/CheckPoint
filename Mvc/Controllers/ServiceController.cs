@@ -13,7 +13,7 @@ namespace Mvc.Controllers
         
         
             SalesContext db = new SalesContext();
-        //[Authorize(Roles = "Администратор")]
+            [Authorize(Roles = "admin")]
             [HttpGet]
             public ActionResult Managers()
             {
@@ -33,6 +33,7 @@ namespace Mvc.Controllers
                 return View(manager);
             }
             // Remove manager for id
+            [Authorize(Roles="admin")]
             public ActionResult DeleteManager(int id)
             {
                 Manager manager = db.Managers.Find(id);
@@ -59,6 +60,7 @@ namespace Mvc.Controllers
                 return View(client);
             }
             // Remove client for id
+            [Authorize(Roles = "admin")]
             public ActionResult DeleteClients(int id)
             {
                 Client client = db.Clients.Find(id);
@@ -86,6 +88,7 @@ namespace Mvc.Controllers
                 return View(goods);
             }
             // Remove goods for id
+            [Authorize(Roles = "admin")]
             public ActionResult DeleteGoods(int id)
             {
                 Goods goods= db.Goods.Find(id);

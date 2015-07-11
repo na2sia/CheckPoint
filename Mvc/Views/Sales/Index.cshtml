@@ -3,14 +3,23 @@
  
 @{
     ViewBag.Title = "Перечень продаж";
-   // int i = 0; //счетчик
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 0; 
 }
+<div><form method="post" action="/Sales/Index">
+        <table>
+            <tr><td><p>Менеджер: </p></td><td> @Html.DropDownList("manager", ViewBag.Managers as SelectList)</td>
+            <td><p>Клиент : </p></td><td> @Html.DropDownList("client",ViewBag.Clients as SelectList)</td>
+            <td><p>Товар : </p></td><td> @Html.DropDownList("_goods",ViewBag.Goods as SelectList)</td>
+            <td><input type="submit" value="Фильтр" /> </td></tr>
+        </table>
+    </form></div>
  
 <h2>Перечень продаж</h2>
 @*<p>Всего: @(Model.Count<Sales>())</p>*@
 <table>
  <tr>
-        @*<td><b>№ п.п.</b></td>*@
+        <td><b>№ п.п.</b></td>
         <td>
             @Html.DisplayNameFor(model => model.Date)
         </td>
@@ -28,9 +37,9 @@
         </td>
     </tr>
 @foreach (var item in Model) {
-    //i++;
+    i++;
     <tr>
-        @*<td><b>@i</b></td>*@
+        <td><b>@i</b></td>
         <td>
             @Html.DisplayFor(modelItem => item.Date)
         </td>
@@ -50,9 +59,12 @@
                href="Sales/Details/@item.Id">
                <img src="../../Content/picture/info.png" class="tdImage" title="Общие сведения" />
          </a></div></td> 
+        @if (HttpContext.Current.User.IsInRole("admin"))
+         {
         <td>
             @Html.ActionLink("Удалить", "Delete", new { id = item.Id })
         </td>
+        }
         
     </tr>
     

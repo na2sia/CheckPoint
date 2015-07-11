@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Список пользователей";
     string i = HttpContext.Current.User.Identity.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
  
 <h2>Список пользователей</h2>

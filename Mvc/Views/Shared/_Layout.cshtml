@@ -6,6 +6,62 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+     
+</head>
+<body>
+    @if (ViewContext.HttpContext.User.IsInRole("admin"))
+    {
+        <h2>Меню администратора: вы вошли как superadmin</h2>
+            <div class="menu">
+                <ul>
+                    <li><a class="hide">Справочники</a>
+                        <ul class="submenu">
+                            <li>@Html.ActionLink("Менеджеры", "Managers", "Service")</li>
+                            <li>@Html.ActionLink("Клиенты", "Clients", "Service")</li>
+                            <li>@Html.ActionLink("Товары", "Goods", "Service")</li>
+                        </ul>
+                    </li>
+                    <li><a class="hide">Сведения о продажах</a>
+                        <ul class="submenu">
+                            <li>@Html.ActionLink("Общие сведения", "Index", "Sales")</li>
+                            <li>@Html.ActionLink("Добавить", "Create", "Sales")</li>
+                        </ul>
+                    </li>
+                    <li><a class="hide">Пользователи</a>
+                        <ul class="submenu">
+                            <li>@Html.ActionLink("Добавление", "Create", "User")</li>
+                            <li>@Html.ActionLink("Просмотр", "Index", "User")</li>
+                        </ul>
+                    </li>
+                    <li>@Html.ActionLink("Выйти", "LogOff", "Account")</li>
+                </ul>
+            </div> 
+    }
+    else if (ViewContext.HttpContext.User.IsInRole("user"))
+    {
+        <h2>Приветствую, @ViewContext.HttpContext.User.Identity.Name</h2>
+            <div class="menu">
+                <ul>
+                    <li>@Html.ActionLink("Сведения о продажах", "Index", "Sales")</li>
+                    <li>@Html.ActionLink("Выйти", "LogOff", "Account")</li>
+                </ul>
+         </div>
+    }
+ 
+    @RenderBody()
+ 
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+@*<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
     @RenderBody()
@@ -13,4 +69,4 @@
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
 </body>
-</html>
+</html>*@

@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Mvc.Models.Sales>
+@using Mvc.Models
+ 
+@{
+    ViewBag.Title = "Перечень продаж";
+   // int i = 0; //счетчик
+}
+ 
+<h2>Перечень продаж</h2>
+@*<p>Всего: @(Model.Count<Sales>())</p>*@
+<table>
+ <tr>
+        @*<td><b>№ п.п.</b></td>*@
+        <td>
+            @Html.DisplayNameFor(model => model.Date)
+        </td>
+        <td>
+            @Html.DisplayNameFor(model => model.Cost)
+        </td>
+        <td>
+            @Html.DisplayNameFor(model => model.ClientId)
+        </td>
+        <td>
+            @Html.DisplayNameFor(model => model.ManagerId)
+        </td>
+        <td>
+            @Html.DisplayNameFor(model => model.GoodsId)
+        </td>
+    </tr>
+@foreach (var item in Model) {
+    //i++;
+    <tr>
+        @*<td><b>@i</b></td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Client.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Manager.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Goods.Name)
+        </td>
+        <td><div><a class="openDialog" data-dialog-id="infoDialog" data-dialog-title="Общие сведения"
+               href="Sales/Details/@item.Id">
+               <img src="../../Content/picture/info.png" class="tdImage" title="Общие сведения" />
+         </a></div></td> 
+        <td>
+            @Html.ActionLink("Удалить", "Delete", new { id = item.Id })
+        </td>
+        
+    </tr>
+    
+}
+ 
+</table>
+ @Styles.Render("~/Content/themes/base/css")
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+}

@@ -1,0 +1,14 @@
+﻿@model Mvc.Models.Sales
+<div>
+    <p><b>Подробные сведения: Чек №  @Html.DisplayFor(model => model.Id)</b></p>
+    <p><b>Клиент</b></p>
+    <p>Имя: @Html.DisplayFor(m=>m.Client.FirstName)</p>
+    <p>Фамилия:@Html.DisplayFor(m=>m.Client.LastName)</p>
+    <p><b>Менеджер</b></p>
+    <p>Имя: @Html.DisplayFor(m=>m.Manager.FirstName)</p>
+    <p>Фамилия:@Html.DisplayFor(m=>m.Manager.LastName)</p>
+    <p><b>Товар</b></p>
+    <p>Название: @Html.DisplayFor(m=>m.Goods.Name)</p>
+    <p>Цена:@Html.DisplayFor(m=>m.Goods.Price)</p>
+    
+</div>

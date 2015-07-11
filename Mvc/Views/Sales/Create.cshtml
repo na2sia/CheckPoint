@@ -1,0 +1,59 @@
+﻿@model Mvc.Models.Sales
+ 
+@{
+    ViewBag.Title = "Добавить сведения о продажах";
+}
+ 
+<h2>Добавить сведения о продажах</h2>
+ 
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Новая продажа</legend>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Cost)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Cost)
+            @*@Html.ValidationMessageFor(model => model.Cost)*@
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Date)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Date)
+            @*@Html.ValidationMessageFor(model => model.Cost)*@
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ClientId)
+        </div>
+        <div class="editor-field">
+             @Html.DropDownListFor(model => model.ClientId, ViewBag.Clients as SelectList)
+            @Html.ValidationMessageFor(model => model.ClientId)
+        </div>
+ 
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ManagerId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.ManagerId, ViewBag.Managers as SelectList)
+            @Html.ValidationMessageFor(model => model.ManagerId)
+        </div>
+ 
+        <div class="editor-label">
+            @Html.LabelFor(model => model.GoodsId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.GoodsId, ViewBag.Goods as SelectList)
+            @Html.ValidationMessageFor(model => model.GoodsId)
+        </div>
+        <p>
+            <input type="submit" value="Сохранить заявку" />
+        </p>
+    </fieldset>
+}
+ 
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

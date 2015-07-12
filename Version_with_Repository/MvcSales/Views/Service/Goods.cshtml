@@ -1,0 +1,45 @@
+﻿@model MvcSales.Models.Goods
+@using MvcSales.Models
+@{
+    ViewBag.Title = "Товары";
+}
+<h2>Товары</h2>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Новый товар</legend>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Price)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Price)
+        </div>
+        <p><input type="submit" value="Добавить" /></p>
+    </fieldset>
+}
+<table>
+    <tr>
+        <td><div class="editor-label">
+            <b>@Html.LabelFor(model => model.Name)</b>
+        </div></td>
+        <td><div class="editor-label">
+            <b>@Html.LabelFor(model => model.Price)</b>
+        </div></td>
+    </tr>
+@foreach (Goods item in ViewBag.Goods)
+{
+    <tr>
+        <td>@item.Name</td>
+        <td>@item.Price</td>
+        <td>@Html.ActionLink("Удалить", "DeleteGoods", new { id=item.Id })</td>
+    </tr>
+}
+</table>

@@ -1,0 +1,59 @@
+﻿@model IEnumerable<MvcSales.Models.User>
+
+@{
+    ViewBag.Title = "Список пользователей";
+    string i = HttpContext.Current.User.Identity.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+ 
+<h2>Список пользователей</h2>
+<table>
+    <tr>
+        <td>
+            <b>@Html.DisplayNameFor(model => model.Name)</b>
+        </td>
+         @if (HttpContext.Current.User.IsInRole("admin"))
+         {
+        <td>
+            <b>@Html.DisplayNameFor(model => model.Login)</b>
+        </td>
+        <td>
+            <b>@Html.DisplayNameFor(model => model.Password)</b>
+        </td>
+         }
+        <td>
+            <b>@Html.DisplayNameFor(model => model.RoleId)</b>
+        </td>
+        <td></td>
+        <td></td>
+    </tr>
+ 
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        @if (HttpContext.Current.User.IsInRole("admin"))
+        {
+        <td>
+            @Html.DisplayFor(modelItem => item.Login)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Password)
+        </td>
+        }
+        <td>
+            @Html.DisplayFor(modelItem => item.Role.Name)
+        </td>
+        @if (HttpContext.Current.User.IsInRole("admin"))
+        {
+        <td>
+            @Html.ActionLink("Редактировать", "Edit", new { id=item.Id }) 
+        </td>
+        <td>
+            @Html.ActionLink("Удалить", "Delete", new { id=item.Id })
+        </td>
+        }
+    </tr>
+}
+</table>

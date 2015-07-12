@@ -1,0 +1,42 @@
+﻿@model MvcSales.Models.Client
+@using MvcSales.Models
+@{
+    ViewBag.Title = "Клиенты";
+}
+<h2>Клиенты</h2>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Новый клиент</legend>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FirstName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FirstName)
+            @Html.ValidationMessageFor(model => model.FirstName)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LastName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LastName)
+            @Html.ValidationMessageFor(model => model.LastName)
+        </div>
+        <p><input type="submit" value="Добавить" /></p>
+    </fieldset>
+}
+<table>
+    <tr>
+        <td><div class="editor-label"><b>@Html.LabelFor(model => model.FirstName)</b></div></td>
+        <td><div class="editor-label"><b>@Html.LabelFor(model => model.LastName)</b></div></td>
+    </tr>
+@foreach (Client item in ViewBag.Clients)
+{
+    <tr>
+        <td>@item.FirstName</td>
+        <td>@item.LastName</td>
+        <td>@Html.ActionLink("Удалить", "DeleteClient", new { id=item.Id })</td>
+    </tr>
+}
+</table>

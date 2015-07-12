@@ -1,0 +1,117 @@
+﻿@model IEnumerable<MvcSales.Models.Sales>
+@using MvcSales.Models
+ 
+@{
+    ViewBag.Title = "Перечень продаж";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 0; 
+}
+
+<div><form method="post" action="/Sales/Index">
+        <table>
+            <tr><td><p><b>Менеджер: </b></p></td><td><div class="drop-list"> @Html.DropDownList("manager", ViewBag.Managers as SelectList)</div></td>
+            <td><p><b>Клиент :</b> </p></td><td> <div class="drop-list">@Html.DropDownList("client",ViewBag.Clients as SelectList)</div></td>
+            <td><p><b>Товар : </b></p></td><td><div class="drop-list"> @Html.DropDownList("_goods",ViewBag.Goods as SelectList)</div></td>
+            <td><input type="submit" value="Фильтр" /> </td></tr>
+        </table>
+    </form></div>
+ 
+<h2>Перечень продаж</h2>
+<table >
+    <tr>
+        <td>
+<table class="sales">
+    <tr >
+        <td><b>
+            @Html.DisplayNameFor(model => model.Date)
+        </b></td>
+        <td><b>
+            @Html.DisplayNameFor(model => model.Cost)
+        </b></td>
+        <td><b>
+            @Html.DisplayNameFor(model => model.ClientId)
+        </b></td>
+        <td><b>
+            @Html.DisplayNameFor(model => model.ManagerId)
+        </b></td>
+        <td><b>
+            @Html.DisplayNameFor(model => model.GoodsId)
+        </b></td>
+        <td><b>
+            Общие сведения
+        </b></td>
+    </tr>
+@foreach (var item in Model) {
+    i++;
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Client.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Manager.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Goods.Name)
+        </td>
+        <td><div><a class="openDialog" data-dialog-id="infoDialog" data-dialog-title="Общие сведения"
+               href="Sales/Details/@item.Id">
+               <img src="../../Content/picture/info.png" class="tdImage" title="Общие сведения" />
+         </a></div></td> 
+        @if (HttpContext.Current.User.IsInRole("admin"))
+         {
+        <td>
+            @Html.ActionLink("Удалить", "Delete", new { id = item.Id })
+        </td>
+        }
+        </tr>
+    
+}
+</table></td><td><div id="chart_div"></div></td></tr>
+</table>
+@Styles.Render("~/Content/themes/base/css")
+@section Scripts {
+@Scripts.Render("~/bundles/jqueryui")
+}
+
+<script type="text/javascript" src="https://www.google.com/jsapi">
+</script>
+
+<script type="text/javascript">
+    // loading API
+    google.load('visualization', '1.0', { 'packages': ['corechart'] });
+
+    // Set callback
+    google.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+        var options = {
+            'title': 'Диаграмма активности менеджеров',
+            'width': 600,
+            'height': 500
+        };
+
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'manager');
+        data.addColumn('number', 'amount');
+
+        $.getJSON('@Url.Action("GetManagerAgePie", "Sales")', null, function (result) {
+            if (result.Salemanager.length) {
+                $.each(result.Salemanager, function (index, c) {
+                    data.addRow(
+                        [c.manager, c.amount]
+                    );
+                });
+                // drawing of the chart
+                var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+                chart.draw(data, options);
+            };
+        });
+    }
+</script>

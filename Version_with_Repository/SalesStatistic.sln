@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{9B35724D-B999-48C3-8B69-DB82467B2969}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFModel", "EFModel\EFModel.csproj", "{EA22D177-5B2A-481E-8C1B-C28F3D425F5D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcSales", "MvcSales\MvcSales.csproj", "{FA5F46A9-B26D-4B59-84C8-7D9F0B7A5226}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9B35724D-B999-48C3-8B69-DB82467B2969}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B35724D-B999-48C3-8B69-DB82467B2969}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B35724D-B999-48C3-8B69-DB82467B2969}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B35724D-B999-48C3-8B69-DB82467B2969}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA22D177-5B2A-481E-8C1B-C28F3D425F5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA22D177-5B2A-481E-8C1B-C28F3D425F5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA22D177-5B2A-481E-8C1B-C28F3D425F5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA22D177-5B2A-481E-8C1B-C28F3D425F5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA5F46A9-B26D-4B59-84C8-7D9F0B7A5226}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA5F46A9-B26D-4B59-84C8-7D9F0B7A5226}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA5F46A9-B26D-4B59-84C8-7D9F0B7A5226}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA5F46A9-B26D-4B59-84C8-7D9F0B7A5226}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

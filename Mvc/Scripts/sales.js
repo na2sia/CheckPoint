@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿$src="https://www.google.com/jsapi"
+$(document).ready(function () {
 
     $.ajaxSetup({ cache: false });
 

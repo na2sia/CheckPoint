@@ -12,6 +12,7 @@ namespace Mvc.Controllers
     public class SalesController : Controller
     {
         SalesContext db = new SalesContext();
+        
         [Authorize]
         [HttpGet]
         public ActionResult Index()
@@ -131,6 +132,7 @@ namespace Mvc.Controllers
             }
             return View(sales);
         }
+        
         // detailed data on sale
         public ActionResult Details(int id)
         {
@@ -144,12 +146,12 @@ namespace Mvc.Controllers
                 sales.Manager = db.Managers.Where(m => m.Id == sales.ManagerId).First();
                 //get goods
                 sales.Goods = db.Goods.Where(m => m.Id == sales.GoodsId).First();
-                
-
+        
                 return PartialView("_Details", sales);
             }
             return View("Index");
         }
+
         // Remove sales for id
         [Authorize(Roles = "admin")]
         public ActionResult Delete(int id)
@@ -158,6 +160,22 @@ namespace Mvc.Controllers
             db.Sales.Remove(sales);
             db.SaveChanges();
             return RedirectToAction("Index");
-        }    
+        }
+
+        [Authorize]
+        public ActionResult Diagram()
+        {
+            return PartialView("Diagram");
+        }
+
+        public JsonResult GetManagerAgePie()
+        {
+            var salesManager = (from x in db.Sales
+                                group x by x.Manager.LastName into countManager
+                                select new { amount = countManager.Count(), manager = countManager.Key }).ToList();
+
+            return Json(new { Salemanager = salesManager }, JsonRequestBehavior.AllowGet);
+        }
+       
     }
 }

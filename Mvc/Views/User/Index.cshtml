@@ -9,22 +9,23 @@
 <h2>Список пользователей</h2>
 <table>
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
+        <td>
+            <b>@Html.DisplayNameFor(model => model.Name)</b>
+        </td>
          @if (HttpContext.Current.User.IsInRole("admin"))
          {
-        <th>
-            @Html.DisplayNameFor(model => model.Login)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Password)
-        </th>
+        <td>
+            <b>@Html.DisplayNameFor(model => model.Login)</b>
+        </td>
+        <td>
+            <b>@Html.DisplayNameFor(model => model.Password)</b>
+        </td>
          }
-        <th>
-            @Html.DisplayNameFor(model => model.RoleId)
-        </th>
-        <th></th>
+        <td>
+            <b>@Html.DisplayNameFor(model => model.RoleId)</b>
+        </td>
+        <td></td>
+        <td></td>
     </tr>
  
 @foreach (var item in Model) {
@@ -47,7 +48,9 @@
         @if (HttpContext.Current.User.IsInRole("admin"))
         {
         <td>
-            @Html.ActionLink("Редактировать", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Редактировать", "Edit", new { id=item.Id }) 
+        </td>
+        <td>
             @Html.ActionLink("Удалить", "Delete", new { id=item.Id })
         </td>
         }

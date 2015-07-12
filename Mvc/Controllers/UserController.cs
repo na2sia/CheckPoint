@@ -47,6 +47,7 @@ namespace Mvc.Controllers
 
             return View(user);
         }
+
         [HttpGet]
         [Authorize(Roles = "admin")]
         public ActionResult Edit(int id)
@@ -74,6 +75,7 @@ namespace Mvc.Controllers
 
             return View(user);
         }
+
         [Authorize(Roles = "admin")]
         public ActionResult Delete(int id)
         {

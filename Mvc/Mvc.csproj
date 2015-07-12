@@ -242,6 +242,7 @@
     <Content Include="Views\Sales\Create.cshtml" />
     <Content Include="Views\Sales\Index.cshtml" />
     <Content Include="Views\Sales\_Details.cshtml" />
+    <Content Include="Views\Sales\Diagram.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

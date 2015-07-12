@@ -9,13 +9,22 @@ header, footer, nav, section {
     display: block;
 }
 table {
+    /*border:groove;*/
     font-size: 15px;
-    position:relative;
+    position:static;
     font-family: Arial, Sans-Serif;
     text-align:justify; 
+    /*width:200px*/
 }
 td {
-    width:100px
+    /*border:groove;*/
+    width:120px;
+    height:30px;
+}
+tr {
+    /*border:groove;*/
+    /*width:120px;*/
+    height:30px;
 }
 
 
@@ -66,7 +75,13 @@ textarea {
     border: 1px solid #f00;
     background-color: #fee;
 }
+.sales {
+    font-size: 15px;
+    position:static;
+    font-family: Arial, Sans-Serif;
+    text-align:center; 
 
+}
 .validation-summary-errors {
     font-weight: bold;
     color: #f00;

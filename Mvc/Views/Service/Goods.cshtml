@@ -21,16 +21,12 @@
         </div>
         <div class="editor-field">
             @Html.TextBoxFor(model => model.Price)
-            @*@Html.ValidationMessageFor(model => model.Price)*@
         </div>
         <p><input type="submit" value="Добавить" /></p>
     </fieldset>
 }
 <table>
     <tr>
-        @*<td><div class="editor-label">
-            <b>№ п.п.</b>
-        </div></td>*@
         <td><div class="editor-label">
             <b>@Html.LabelFor(model => model.Name)</b>
         </div></td>
@@ -41,7 +37,6 @@
 @foreach (Goods item in ViewBag.Goods)
 {
     <tr>
-        @*<td>@item.Id</td>*@
         <td>@item.Name</td>
         <td>@item.Price</td>
         <td>@Html.ActionLink("Удалить", "DeleteGoods", new { id=item.Id })</td>

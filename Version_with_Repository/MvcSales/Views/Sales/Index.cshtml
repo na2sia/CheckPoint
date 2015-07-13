@@ -51,6 +51,7 @@
             @Html.DisplayFor(modelItem => item.Cost)
         </td>
         <td>
+            @*@Html.DropDownList("manager", ViewBag.Managers as SelectList)*@
             @Html.DisplayFor(modelItem => item.Client.LastName)
         </td>
         <td>

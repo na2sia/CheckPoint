@@ -3,32 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DAL.DBModel;
-using DAL.ModelsFromEntity;
+using MvcSales.Models;
+using MvcSales.Repository;
 
-namespace DAL
+namespace MvcSales
 {
     public class GoodsRepository:IModelRepository<Goods> 
     {
-        private EFModel.SalesContext context = new EFModel.SalesContext();
+        private SalesContext context = new SalesContext();
 
-        private EFModel.Goods ToEntity(Goods source)
-        {
-            return new EFModel.Goods() { Id = source.Id, Name = source.Name, Price = source.Price};
-        }
-        private Goods ToObject(EFModel.Goods source)
-        {
-            return new Goods() { Id = source.Id, Name = source.Name, Price = source.Price };
-        }
+        //private EFModel.Goods ToEntity(Goods source)
+        //{
+        //    return new EFModel.Goods() { Id = source.Id, Name = source.Name, Price = source.Price};
+        //}
+        //private Goods ToObject(EFModel.Goods source)
+        //{
+        //    return new Goods() { Id = source.Id, Name = source.Name, Price = source.Price };
+        //}
         public void Add(Goods item)
         {
-            var itemToEntity = this.ToEntity(item);
-            context.Goods.Add(itemToEntity);
+           // var itemToEntity = this.ToEntity(item);
+            context.Goods.Add(item);
         }
 
         public void Remove(int id)
         {
-            EFModel.Goods goods = context.Goods.Find(id);
+            Goods goods = context.Goods.Find(id);
             if (goods != null)
                 context.Goods.Remove(goods);
         }
@@ -41,10 +41,7 @@ namespace DAL
         {
             get
             {
-                foreach (var i in this.context.Goods)
-                {
-                    yield return this.ToObject(i);
-                };
+                return context.Goods;
             }
         }
 

@@ -3,33 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DAL.DBModel;
-using DAL.ModelsFromEntity;
+using MvcSales.Repository;
+using MvcSales.Models;
 
-namespace DAL
+namespace MvcSales
 {
     public class ManagerRepository : IModelRepository<Manager>
     {
-        private EFModel.SalesContext context = new EFModel.SalesContext();
-        private EFModel.Manager ToEntity(Manager source)
-        {
-            return new EFModel.Manager() { Id = source.Id, FirstName = source.FirstName, LastName = source.LastName };
-        }
-        private Manager ToObject(EFModel.Manager source)
-        {
-            return new Manager() { Id = source.Id, FirstName = source.FirstName, };
-        }
+        private SalesContext context = new SalesContext();
+        //private EFModel.Manager ToEntity(Manager source)
+        //{
+        //    return new EFModel.Manager() { Id = source.Id, FirstName = source.FirstName, LastName = source.LastName };
+        //}
+        //private Manager ToObject(EFModel.Manager source)
+        //{
+        //    return new Manager() { Id = source.Id, FirstName = source.FirstName, };
+        //}
 
         public void Add(Manager item)
         {
-            var itemToEntity = this.ToEntity(item);
+            //var itemToEntity = this.ToEntity(item);
 
-            context.Managers.Add(itemToEntity);
+            context.Managers.Add(item);
         }
 
         public void Remove(int id)
         {
-            EFModel.Manager manager = context.Managers.Find(id);
+            Manager manager = context.Managers.Find(id);
             if (manager != null)
                 context.Managers.Remove(manager);
         }
@@ -43,10 +43,7 @@ namespace DAL
         {
             get
             {
-                foreach (var u in this.context.Managers)
-                {
-                    yield return this.ToObject(u);
-                }
+                return context.Managers;
             }
         }
 

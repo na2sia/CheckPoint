@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MvcSales.Models;
-using DAL.DBModel;
+using MvcSales.Repository;
 
 namespace MvcSales.Controllers
 {
@@ -14,8 +14,8 @@ namespace MvcSales.Controllers
     public class UserController : Controller
     {
         //private SalesContext db = new SalesContext();
-        private IModelRepository<DAL.ModelsFromEntity.User> _user = new DAL.UserRepository();
-        private IModelRepository<DAL.ModelsFromEntity.Role> _role = new DAL.RoleRepository();
+        private IModelRepository<User> _user = new UserRepository();
+        private IModelRepository<Role> _role = new RoleRepository();
         [Authorize(Roles = "admin")]
         [HttpGet]
         public ActionResult Index()
@@ -37,14 +37,14 @@ namespace MvcSales.Controllers
         [Authorize(Roles = "admin")]
         public ActionResult Create(User user)
         {
-            DAL.ModelsFromEntity.User us = new DAL.ModelsFromEntity.User();
+            //DAL.ModelsFromEntity.User us = new DAL.ModelsFromEntity.User();
             if (ModelState.IsValid)
             {
-                us.Login = user.Login;
-                us.Name = user.Name;
-                us.Password = user.Password;
-                us.RoleId = user.RoleId;
-                _user.Add(us);
+                //us.Login = user.Login;
+                //us.Name = user.Name;
+                //us.Password = user.Password;
+                //us.RoleId = user.RoleId;
+                _user.Add(user);
                 _user.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -59,7 +59,7 @@ namespace MvcSales.Controllers
         [Authorize(Roles = "admin")]
         public ActionResult Edit(int id)
         {
-            DAL.ModelsFromEntity.User user = _user.Items.FirstOrDefault(x=>x.Id==id);
+            User user = _user.Items.FirstOrDefault(x=>x.Id==id);
             SelectList roles = new SelectList(_role.Items, "Id", "Name", user.RoleId);
             ViewBag.Roles = roles;
 
@@ -70,14 +70,14 @@ namespace MvcSales.Controllers
         [Authorize(Roles = "admin")]
         public ActionResult Edit(User user)
         {
-            DAL.ModelsFromEntity.User us = new DAL.ModelsFromEntity.User();
+            //DAL.ModelsFromEntity.User us = new DAL.ModelsFromEntity.User();
             if (ModelState.IsValid)
             {
-                us.Login = user.Login;
-                us.Name = user.Name;
-                us.Password = user.Password;
-                us.RoleId = user.RoleId;
-                _user.Update(us);
+                //us.Login = user.Login;
+                //us.Name = user.Name;
+                //us.Password = user.Password;
+                //us.RoleId = user.RoleId;
+                _user.Update(user);
                 _user.SaveChanges();
                 return RedirectToAction("Index");
             }

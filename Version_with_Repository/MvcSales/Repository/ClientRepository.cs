@@ -3,36 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DAL.DBModel;
-using DAL.ModelsFromEntity;
+//using DAL.DBModel;
+using MvcSales.Models;
+using MvcSales.Repository;
 
-namespace DAL
+namespace MvcSales
 {
     public class ClientRepository : IModelRepository<Client> 
     {
-        private EFModel.SalesContext context;
+        private SalesContext context;
         public ClientRepository()
         {
-            this.context = new EFModel.SalesContext();
+            this.context = new SalesContext();
         }
-        private EFModel.Client ToEntity(Client source)
-        {
-            return new EFModel.Client() { Id = source.Id, FirstName = source.FirstName, LastName = source.LastName};
-        }
-        private Client ToObject(EFModel.Client source)
-        {
-            return new Client() { Id = source.Id, FirstName = source.FirstName, LastName=source.LastName};
-        }
+        //private EFModel.Client ToEntity(Client source)
+        //{
+        //    return new EFModel.Client() { Id = source.Id, FirstName = source.FirstName, LastName = source.LastName};
+        //}
+        //private Client ToObject(EFModel.Client source)
+        //{
+        //    return new Client() { Id = source.Id, FirstName = source.FirstName, LastName=source.LastName};
+        //}
 
         public void Add(Client item)
         {
-            var itemToEntity = this.ToEntity(item);
-            context.Clients.Add(itemToEntity);
+           // var itemToEntity = this.ToEntity(item);
+            context.Clients.Add(item);
         }
 
         public void Remove(int id)
         {
-            EFModel.Client client = context.Clients.Find(id);
+            Client client = context.Clients.Find(id);
             if (client != null)
                 context.Clients.Remove(client);
         }
@@ -43,13 +44,11 @@ namespace DAL
         }
 
         public IEnumerable<Client> Items
+
         {
             get
             {
-                foreach (var i in this.context.Clients)
-                {
-                    yield return this.ToObject(i);
-                };
+                return context.Clients;
             }
         }
 

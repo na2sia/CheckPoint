@@ -3,38 +3,38 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DAL.DBModel;
-using DAL.ModelsFromEntity;
+using MvcSales.Repository;
+using MvcSales.Models;
 using System.Data.Entity;
 
-namespace DAL
+namespace MvcSales
 {
     public class UserRepository : IModelRepository<User>
     {
-        private EFModel.SalesContext context;
+        private SalesContext context;
         public UserRepository()
         {
-            this.context = new EFModel.SalesContext();
+            this.context = new SalesContext();
         }
-        private EFModel.User ToEntity(User source)
-        {
-            return new EFModel.User() { Id = source.Id, Name = source.Name, Login = source.Login, Password=source.Password, RoleId=source.RoleId };
-        }
-        private User ToObject(EFModel.User source)
-        {
-            return new User() { Id = source.Id, Name = source.Name, Login = source.Login, Password = source.Password, RoleId = source.RoleId };
-        }
+        //private EFModel.User ToEntity(User source)
+        //{
+        //    return new EFModel.User() { Id = source.Id, Name = source.Name, Login = source.Login, Password=source.Password, RoleId=source.RoleId };
+        //}
+        //private User ToObject(EFModel.User source)
+        //{
+        //    return new User() { Id = source.Id, Name = source.Name, Login = source.Login, Password = source.Password, RoleId = source.RoleId };
+        //}
 
         public void Add(User item)
         {
-            var itemToEntity = this.ToEntity(item);
+           // var itemToEntity = this.ToEntity(item);
 
-            context.Users.Add(itemToEntity);
+            context.Users.Add(item);
         }
 
         public void Remove(int id)
         {
-            EFModel.User user = context.Users.Find(id);
+           User user = context.Users.Find(id);
             if (user!=null)
             context.Users.Remove(user);
         }
@@ -43,8 +43,8 @@ namespace DAL
         {
             if (context != null)
             {
-                var itemToEntity = this.ToEntity(item);
-                context.Entry(itemToEntity).State = EntityState.Modified;
+                //var itemToEntity = this.ToEntity(item);
+                context.Entry(item).State = EntityState.Modified;
                 //context.Users.Attach(itemToEntity);
             }
         }
@@ -53,10 +53,7 @@ namespace DAL
         {
             get
             {
-                foreach (var u in this.context.Users)
-                {
-                    yield return this.ToObject(u);
-                }
+                return context.Users;
             }
         }
 

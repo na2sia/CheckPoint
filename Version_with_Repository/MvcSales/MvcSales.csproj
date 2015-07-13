@@ -139,11 +139,23 @@
     <Compile Include="Models\Manager.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\Sales.cs" />
+    <Compile Include="Models\SalesContext.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\MyRoleProvider.cs" />
+    <Compile Include="Repository\ClientRepository.cs" />
+    <Compile Include="Repository\GoodsRepository.cs" />
+    <Compile Include="Repository\IModelRepository.cs" />
+    <Compile Include="Repository\ManagerRepository.cs" />
+    <Compile Include="Repository\RoleRepository.cs" />
+    <Compile Include="Repository\SalesRepository.cs" />
+    <Compile Include="Repository\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\MVCSales.mdf" />
+    <Content Include="App_Data\MVCSales_log.ldf">
+      <DependentUpon>MVCSales.mdf</DependentUpon>
+    </Content>
     <Content Include="App_Data\SalesMy.mdf" />
     <Content Include="App_Data\SalesMy_log.ldf">
       <DependentUpon>SalesMy.mdf</DependentUpon>
@@ -248,12 +260,6 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DAL\DAL.csproj">
-      <Project>{9b35724d-b999-48c3-8b69-db82467b2969}</Project>
-      <Name>DAL</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

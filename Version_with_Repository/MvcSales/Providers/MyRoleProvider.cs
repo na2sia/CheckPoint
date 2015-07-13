@@ -7,6 +7,7 @@ using System.Web.Helpers;
 using System.Web.WebPages;
 using Microsoft.Internal.Web.Utils;
 using MvcSales.Models;
+using MvcSales.Repository;
 
 namespace MvcSales.Providers
 {
@@ -16,19 +17,19 @@ namespace MvcSales.Providers
         public override string[] GetRolesForUser(string login)
         {
             string[] role = new string[] { };
-            using (DAL.DBModel.IModelRepository<DAL.ModelsFromEntity.User> _user = new DAL.UserRepository())
+            using (IModelRepository<User> _user = new UserRepository())
             {
                 try
                 {
-                    DAL.DBModel.IModelRepository<DAL.ModelsFromEntity.Role> _role = new DAL.RoleRepository();
+                    IModelRepository<Role> _role = new RoleRepository();
                     // Get User
-                    DAL.ModelsFromEntity.User user = (from u in _user.Items
+                    var user = (from u in _user.Items
                                  where u.Login == login
                                  select u).FirstOrDefault();
                     if (user != null)
                     {
                         // Get role
-                        DAL.ModelsFromEntity.Role userRole = _role.Items.FirstOrDefault(x=>x.Id==user.RoleId);
+                        var userRole = _role.Items.FirstOrDefault(x=>x.Id==user.RoleId);
 
                         if (userRole != null)
                         {
@@ -47,19 +48,19 @@ namespace MvcSales.Providers
         {
             bool outputResult = false;
             // Find user
-            using (DAL.DBModel.IModelRepository<DAL.ModelsFromEntity.User> _user = new DAL.UserRepository())
+            using (IModelRepository<User> _user = new UserRepository())
             {
                 try
                 {
-                    DAL.DBModel.IModelRepository<DAL.ModelsFromEntity.Role> _role = new DAL.RoleRepository();
+                    IModelRepository<Role> _role = new RoleRepository();
                     // get user
-                    DAL.ModelsFromEntity.User user = (from u in _user.Items
+                    var user = (from u in _user.Items
                                  where u.Login == username
                                  select u).FirstOrDefault();
                     if (user != null)
                     {
                         // get role
-                        DAL.ModelsFromEntity.Role userRole = _role.Items.FirstOrDefault(x=>x.Id==user.RoleId);
+                        var userRole = _role.Items.FirstOrDefault(x=>x.Id==user.RoleId);
 
                         //compare
                         if (userRole != null && userRole.Name == roleName)

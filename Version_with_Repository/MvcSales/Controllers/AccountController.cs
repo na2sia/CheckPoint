@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using MvcSales.Models;
+using MvcSales.Repository;
 
 namespace MvcSales.Controllers
 {
@@ -50,9 +51,11 @@ namespace MvcSales.Controllers
         {
             bool isValid = false;
  
-            using (DAL.DBModel.IModelRepository<DAL.ModelsFromEntity.User> userRep =new DAL.UserRepository() )
+            //using (
+            IModelRepository<User> userRep = new UserRepository();
+            //)
                 //SalesContext _db = new SalesContext())
-            {
+           // {
                 try
                 {
                     var user = (from u in userRep.Items
@@ -68,7 +71,7 @@ namespace MvcSales.Controllers
                 {
                     isValid = false;
                 }
-            }
+            //}
             return isValid;
         }
     }

@@ -5,18 +5,18 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using MvcSales.Models;
-using DAL.DBModel;
+using MvcSales.Repository;
 
 namespace MvcSales.Controllers
 {
     public class ServiceController : Controller
     {
         //SalesContext db = new SalesContext();
-        IModelRepository<DAL.ModelsFromEntity.Sales> _sales = new DAL.SalesRepository();
-        IModelRepository<DAL.ModelsFromEntity.User> _user = new DAL.UserRepository();
-        IModelRepository<DAL.ModelsFromEntity.Manager> _manager = new DAL.ManagerRepository();
-        IModelRepository<DAL.ModelsFromEntity.Client> _client = new DAL.ClientRepository();
-        IModelRepository<DAL.ModelsFromEntity.Goods> __goods = new DAL.GoodsRepository();
+        IModelRepository<Sales> _sales = new SalesRepository();
+        IModelRepository<User> _user = new UserRepository();
+        IModelRepository<Manager> _manager = new ManagerRepository();
+        IModelRepository<Client> _client = new ClientRepository();
+        IModelRepository<Goods> __goods = new GoodsRepository();
         
         [Authorize(Roles = "admin")]
         [HttpGet]
@@ -29,12 +29,12 @@ namespace MvcSales.Controllers
         [HttpPost]
         public ActionResult Managers(Manager manager)
         {
-            DAL.ModelsFromEntity.Manager man = new DAL.ModelsFromEntity.Manager();
+            Manager man = new Manager();
             if (ModelState.IsValid)
             {
-                man.FirstName = manager.FirstName;
-                man.LastName = manager.FirstName;
-                _manager.Add(man);
+                //man.FirstName = manager.FirstName;
+                //man.LastName = manager.FirstName;
+                _manager.Add(manager);
                 _manager.SaveChanges();
             }
             ViewBag.Managers = _manager.Items;
@@ -60,12 +60,12 @@ namespace MvcSales.Controllers
         [HttpPost]
         public ActionResult Clients(Client client)
         {
-            DAL.ModelsFromEntity.Client cli = new DAL.ModelsFromEntity.Client();
+            //Client cli = new Client();
             if (ModelState.IsValid)
             {
-                cli.FirstName = client.FirstName;
-                cli.LastName = client.LastName;
-                _client.Add(cli);
+                //cli.FirstName = client.FirstName;
+                //cli.LastName = client.LastName;
+                _client.Add(client);
                 _client.SaveChanges();
             }
             ViewBag.Clients = _client.Items;
@@ -91,12 +91,12 @@ namespace MvcSales.Controllers
         [HttpPost]
         public ActionResult Goods(Goods goods)
         {
-            DAL.ModelsFromEntity.Goods goo = new DAL.ModelsFromEntity.Goods();
+            //DAL.ModelsFromEntity.Goods goo = new DAL.ModelsFromEntity.Goods();
             if (ModelState.IsValid)
             {
-                goo.Name = goods.Name;
-                goo.Price = goods.Price;
-                __goods.Add(goo);
+                //goo.Name = goods.Name;
+                //goo.Price = goods.Price;
+                __goods.Add(goods);
                 __goods.SaveChanges();
             }
             ViewBag.Goods = __goods.Items;
